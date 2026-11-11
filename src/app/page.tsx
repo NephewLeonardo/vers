@@ -1,24 +1,40 @@
-import { formatarPreco } from "@/lib/format";
+import { CATEGORIAS, TAMANHOS, type Categoria, type Tamanho } from "@/content/types";
+import { Vitrine } from "@/components/shop/Vitrine";
 import { getProdutos } from "@/lib/products";
 
-/** Provisória: a entrada 3D chega na etapa 5 e a grade de produtos na etapa 3. */
-export default async function Home() {
-  const produtos = await getProdutos();
+interface PageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+function lerCategoria(v: unknown): Categoria | null {
+  return CATEGORIAS.find((c) => c === v) ?? null;
+}
+
+function lerTamanho(v: unknown): Tamanho | null {
+  return TAMANHOS.find((t) => t === v) ?? null;
+}
+
+/** A entrada 3D chega na etapa 5; por enquanto a página abre direto na vitrine. */
+export default async function Home({ searchParams }: PageProps) {
+  const [produtos, params] = await Promise.all([getProdutos(), searchParams]);
 
   return (
-    <main id="conteudo" className="mx-auto max-w-7xl px-4 pt-24 pb-24 sm:px-8">
-      <section id="pecas" aria-labelledby="titulo-pecas">
-        <h1 id="titulo-pecas" className="text-5xl sm:text-6xl">
-          Todas as peças
-        </h1>
-        <ul className="mt-12 divide-y divide-linha border-y border-linha">
-          {produtos.map((p) => (
-            <li key={p.slug} className="flex justify-between py-4 text-grafite">
-              <span>{p.nome}</span>
-              <span>{formatarPreco(p.precoCentavos)}</span>
-            </li>
-          ))}
-        </ul>
+    <main id="conteudo" className="mx-auto max-w-7xl px-4 pt-20 pb-24 sm:px-8 sm:pt-28">
+      <section id="pecas" aria-labelledby="titulo-pecas" className="scroll-mt-20">
+        <header className="mb-10 flex flex-col gap-4 sm:mb-14">
+          <p className="legenda text-cinza-texto">Vitrine</p>
+          <h1 id="titulo-pecas" className="text-5xl sm:text-7xl">
+            Todas as peças
+          </h1>
+        </header>
+
+        <Vitrine
+          produtos={produtos}
+          inicial={{
+            categoria: lerCategoria(params.categoria),
+            tamanho: lerTamanho(params.tamanho),
+          }}
+        />
       </section>
     </main>
   );
