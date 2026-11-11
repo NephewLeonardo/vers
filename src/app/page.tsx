@@ -1,10 +1,20 @@
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { CATEGORIAS, TAMANHOS, type Categoria, type Tamanho } from "@/content/types";
 import { CenaCampanha } from "@/components/entrada/CenaCampanha";
 import { Entrada } from "@/components/entrada/Entrada";
 import { ScriptEntrada } from "@/components/entrada/ScriptEntrada";
+import { JsonLd } from "@/components/JsonLd";
 import { Vitrine } from "@/components/shop/Vitrine";
 import { getProdutos } from "@/lib/products";
+import { jsonLdOrganizacao } from "@/lib/seo";
+import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: { absolute: `${site.name} · Moda festa, balada e praia em Curitiba` },
+  description: site.description,
+  alternates: { canonical: "/" },
+};
 
 interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -29,6 +39,7 @@ export default async function Home({ searchParams }: PageProps) {
   return (
     <>
       <ScriptEntrada nonce={nonce} />
+      <JsonLd dados={jsonLdOrganizacao()} nonce={nonce} />
       <Entrada cena={<CenaCampanha />} idVitrine="vitrine" idTituloVitrine="titulo-pecas" />
 
       {/* A vitrine sobe por cima da última tela da entrada (margem negativa aplicada via JS). */}

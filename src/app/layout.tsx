@@ -15,11 +15,14 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  applicationName: site.name,
   openGraph: {
     type: "website",
     locale: site.locale,
     siteName: site.name,
   },
+  twitter: { card: "summary_large_image" },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = {

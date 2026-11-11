@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PLACEHOLDER } from "@/content/types";
+import { JsonLd } from "@/components/JsonLd";
 import { CompleteOLook } from "@/components/shop/CompleteOLook";
 import { Galeria } from "@/components/shop/Galeria";
 import { PainelCompra } from "@/components/shop/PainelCompra";
 import { formatarPreco, nomeEtiqueta } from "@/lib/format";
 import { getCompleteOLook, getProduto } from "@/lib/products";
+import { ehPlaceholder, jsonLdProduto } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 interface PageProps {
@@ -27,6 +30,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: produto.nome,
     description: descricao,
     alternates: { canonical: `/peca/${produto.slug}` },
+    // Peças com dados provisórios não vão para o Google.
+    robots: ehPlaceholder(produto) ? { index: false, follow: true } : undefined,
     openGraph: {
       title: produto.nome,
       description: descricao,
@@ -43,7 +48,8 @@ export default async function PecaPage({ params }: PageProps) {
   const produto = await getProduto(slug);
   if (!produto) notFound();
 
-  const relacionadas = await getCompleteOLook(produto);
+  const [relacionadas, cabecalhos] = await Promise.all([getCompleteOLook(produto), headers()]);
+  const nonce = cabecalhos.get("x-nonce") ?? undefined;
   const urlPeca = new URL(`/peca/${produto.slug}`, site.url).toString();
   const etiqueta = produto.etiquetas[0];
 
@@ -109,6 +115,8 @@ export default async function PecaPage({ params }: PageProps) {
       <div className="mt-24 sm:mt-32">
         <CompleteOLook produtos={relacionadas} />
       </div>
+
+      <JsonLd dados={jsonLdProduto(produto)} nonce={nonce} />
     </main>
   );
 }
