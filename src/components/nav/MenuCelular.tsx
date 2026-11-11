@@ -50,6 +50,7 @@ export function MenuCelular({ aberto, onFechar }: MenuCelularProps) {
     <dialog
       ref={ref}
       id="menu-celular"
+      data-lenis-prevent
       aria-label="Menu"
       onClose={onFechar}
       className="m-0 h-dvh max-h-none w-screen max-w-none bg-branco p-0 text-preto opacity-100 transition-opacity duration-300 ease-vers backdrop:bg-transparent motion-reduce:transition-none starting:opacity-0"

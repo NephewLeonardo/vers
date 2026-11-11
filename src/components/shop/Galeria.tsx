@@ -164,6 +164,7 @@ function Zoom({
   return (
     <dialog
       ref={dialogRef}
+      data-lenis-prevent
       onClose={onFechar}
       onKeyDown={teclas}
       aria-label={`Zoom: ${nomePeca}`}

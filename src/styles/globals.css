@@ -100,3 +100,136 @@
     transform: none;
   }
 }
+
+/* ---------- Lenis (rolagem suave) ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ---------- Entrada 3D ---------- */
+.entrada {
+  /* Altura do V na abertura: igual a ALTURA_V / LARGURA_MAX_V em Entrada.tsx. */
+  --v-altura: min(62lvh, calc(78vw * 713 / 646));
+}
+@media (max-width: 767px) {
+  .entrada {
+    --v-altura: min(50lvh, calc(78vw * 713 / 646));
+  }
+}
+
+/* Antes do JavaScript: o V centralizado sobre o preto, a cena escondida. */
+.entrada .mascara {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 4lvh);
+  height: var(--v-altura);
+  width: calc(var(--v-altura) * 646 / 713);
+  translate: -50% -50%;
+  overflow: visible;
+}
+.entrada:not([data-pronta]) [data-cena] {
+  visibility: hidden;
+}
+/* Com o JavaScript: o SVG cobre a tela e o V vira um furo na tela preta. */
+.entrada[data-pronta] .mascara {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  translate: none;
+}
+
+/* "VERS / Role para entrar" acima da barra do navegador no celular. */
+.entrada-dica {
+  bottom: calc(100lvh - 100svh + 2.5rem);
+}
+
+@keyframes v-tracar {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes v-abrir {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes entrada-surgir {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes entrada-pulso {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+/* O V se desenha com um traço leve; depois o miolo abre e mostra a cena. */
+.v-traco {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: v-tracar 2.2s var(--ease-vers) 0.2s forwards;
+}
+.v-tampa {
+  animation: v-abrir 1.2s ease 2s forwards;
+}
+.entrada-dica > * {
+  opacity: 0;
+  animation: entrada-surgir 1s var(--ease-vers) 2.1s forwards;
+}
+.entrada-linha {
+  animation:
+    entrada-surgir 1s var(--ease-vers) 2.1s forwards,
+    entrada-pulso 2.4s ease-in-out 3s infinite !important;
+}
+
+/* Versão curta (já vista nesta sessão). */
+html[data-entrada-curta] .v-traco {
+  animation-duration: 0.7s;
+  animation-delay: 0s;
+}
+html[data-entrada-curta] .v-tampa {
+  animation-duration: 0.5s;
+  animation-delay: 0.5s;
+}
+html[data-entrada-curta] .entrada-dica > * {
+  animation-delay: 0.5s;
+}
+
+/* Sem entrada: link direto para uma âncora ou movimento reduzido. */
+html[data-entrada-pular] [data-entrada] {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-entrada] {
+    display: none;
+  }
+}
+
+/* Antes da hidratação, a barra fica escondida sobre a entrada (evita piscar). */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-entrada-pular]):has([data-entrada]) [data-nav]:not([data-nav-pronta]) {
+    translate: 0 -100%;
+  }
+}

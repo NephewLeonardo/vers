@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LinkInstagram } from "@/components/layout/LinkInstagram";
 import { Logo } from "@/components/layout/Logo";
 import { LINKS_DIREITA, LINKS_ESQUERDA } from "./links";
 import { MenuCelular } from "./MenuCelular";
-import { useEstadoNav } from "./navStore";
+import { navStore, useEstadoNav } from "./navStore";
 
 /** A partir de quantos px rolados a barra fica sólida. */
 const LIMITE_SOLIDA = 8;
@@ -15,6 +15,8 @@ const LIMITE_SOLIDA = 8;
 const LIMITE_ESCONDER = 160;
 /** Variação mínima de rolagem para trocar de direção (evita tremer). */
 const TOLERANCIA = 6;
+/** Depois que a barra entra (fim da entrada), quanto rolar para baixo até ela sumir de novo. */
+const FOLGA_CHEGADA = 240;
 
 interface NavProps {
   /** Faixa de aviso exibida acima da barra (renderizada no servidor). */
@@ -29,10 +31,18 @@ export function Nav({ faixa }: NavProps) {
   const [menuAberto, setMenuAberto] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
+  // Libera a barra do CSS de pré-hidratação; daqui em diante o navStore controla.
+  useLayoutEffect(() => {
+    headerRef.current?.setAttribute("data-nav-pronta", "");
+  }, []);
+
   // Some ao rolar para baixo, reaparece ao rolar para cima.
   useEffect(() => {
     let ultimo = window.scrollY;
     let agendado = false;
+    /** Posição em que a barra (re)entrou: só volta a sumir depois de uma folga além dela. */
+    let ancora = -Infinity;
+    let estavaPresente = navStore.get().presente;
 
     function atualizar() {
       agendado = false;
@@ -42,7 +52,8 @@ export function Nav({ faixa }: NavProps) {
       if (Math.abs(delta) < TOLERANCIA) return;
       // Não esconde se o foco do teclado estiver dentro da barra.
       const focoDentro = headerRef.current?.contains(document.activeElement) ?? false;
-      setRecolhida(delta > 0 && y > LIMITE_ESCONDER && !focoDentro);
+      const limite = Math.max(LIMITE_ESCONDER, ancora + FOLGA_CHEGADA);
+      setRecolhida(delta > 0 && y > limite && !focoDentro);
       ultimo = y;
     }
 
@@ -52,9 +63,23 @@ export function Nav({ faixa }: NavProps) {
       requestAnimationFrame(atualizar);
     }
 
+    // Quando a entrada libera a barra, ela entra deslizando mesmo que a pessoa esteja descendo.
+    const cancelar = navStore.subscribe(() => {
+      const { presente: agora } = navStore.get();
+      if (agora && !estavaPresente) {
+        ancora = window.scrollY;
+        ultimo = ancora;
+        setRecolhida(false);
+      }
+      estavaPresente = agora;
+    });
+
     atualizar();
     window.addEventListener("scroll", aoRolar, { passive: true });
-    return () => window.removeEventListener("scroll", aoRolar);
+    return () => {
+      cancelar();
+      window.removeEventListener("scroll", aoRolar);
+    };
   }, []);
 
   const escondida = !presente || (recolhida && !menuAberto);
@@ -73,6 +98,7 @@ export function Nav({ faixa }: NavProps) {
     <>
       <header
         ref={headerRef}
+        data-nav
         onFocus={() => setRecolhida(false)}
         inert={!presente}
         className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-vers will-change-transform motion-reduce:transition-none ${
