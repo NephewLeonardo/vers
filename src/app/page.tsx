@@ -1,17 +1,25 @@
-/** Página provisória da etapa 1: só confirma tema, fontes e build. */
-export default function Home() {
+import { formatarPreco } from "@/lib/format";
+import { getProdutos } from "@/lib/products";
+
+/** Provisória: a entrada 3D chega na etapa 5 e a grade de produtos na etapa 3. */
+export default async function Home() {
+  const produtos = await getProdutos();
+
   return (
-    <main
-      id="conteudo"
-      className="mx-auto flex min-h-dvh max-w-3xl flex-col items-center justify-center gap-8 px-6 text-center"
-    >
-      <p className="legenda text-cinza-texto">Etapa 1 · base do projeto</p>
-      <h1 className="font-serif text-7xl italic">Vers</h1>
-      <p className="font-light text-grafite">
-        Moda festa, balada e praia · Curitiba e região metropolitana
-      </p>
-      <span className="botao">Botão de exemplo</span>
-      <hr className="w-full border-linha" />
+    <main id="conteudo" className="mx-auto max-w-7xl px-4 pt-24 pb-24 sm:px-8">
+      <section id="pecas" aria-labelledby="titulo-pecas">
+        <h1 id="titulo-pecas" className="text-5xl sm:text-6xl">
+          Todas as peças
+        </h1>
+        <ul className="mt-12 divide-y divide-linha border-y border-linha">
+          {produtos.map((p) => (
+            <li key={p.slug} className="flex justify-between py-4 text-grafite">
+              <span>{p.nome}</span>
+              <span>{formatarPreco(p.precoCentavos)}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
   );
 }

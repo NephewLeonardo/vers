@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { inter, playfair } from "./fonts";
 import { site } from "@/lib/site";
+import { Faixa } from "@/components/layout/Faixa";
+import { Rodape } from "@/components/layout/Rodape";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -35,7 +37,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a href="#conteudo" className="pular-para-conteudo legenda">
           Pular para o conteúdo
         </a>
+        <Faixa />
         {children}
+        <Rodape />
       </body>
     </html>
   );
