@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vers — Moda festa, balada e praia em Curitiba</title>
+<meta name="description" content="Vers: peças para festa, balada e praia, com entrega em Curitiba e região metropolitana.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Vers">
+<meta property="og:description" content="Moda festa, balada e praia · Curitiba e região metropolitana">
+<meta property="og:type" content="website">
+<link rel="preload" href="assets/fonts/versv.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#pecas">Pular para as peças</a>
+
+<!-- Cabeçalho fixo que aparece depois da entrada -->
+<header class="sticky-header" id="stickyHeader" aria-label="Navegação">
+  <div class="wrap sticky-inner">
+    <a class="logo logo-sm" href="#topo">Vers</a>
+    <nav class="sticky-nav" aria-label="Seções">
+      <a href="#pecas" data-filtro="todas">Peças</a>
+      <a href="#como-comprar">Como comprar</a>
+      <a href="#" data-instagram>Instagram</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Entrada 3D: tela preta com o V vazado -->
+<section class="intro" id="topo">
+  <div class="stage">
+    <div class="persp">
+      <div class="site" id="site">
+        <p class="bar">Entrega em Curitiba e região metropolitana</p>
+        <div class="wrap">
+          <header class="top">
+            <nav class="nav-left" aria-label="Ocasiões">
+              <a href="#pecas" data-filtro="novidades">Novidades</a>
+              <a href="#pecas" data-filtro="festa">Festa</a>
+              <a href="#pecas" data-filtro="balada">Balada</a>
+              <a href="#pecas" data-filtro="praia">Praia</a>
+            </nav>
+            <a class="logo" href="#topo">Vers</a>
+            <nav class="nav-right" aria-label="Atalhos">
+              <a href="#como-comprar">Como comprar</a>
+              <a href="#" data-instagram>Instagram</a>
+            </nav>
+          </header>
+        </div>
+        <div class="wrap hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Festa · Balada · Praia</p>
+            <h1>Para a noite que você vai lembrar.</h1>
+            <p class="lead">Vestidos, conjuntos e moda praia escolhidos a dedo, com entrega em Curitiba e região metropolitana.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#pecas" data-filtro="todas">Ver todas as peças</a>
+              <a class="btn btn-ghost" href="#como-comprar">Como comprar</a>
+            </div>
+          </div>
+          <div class="hero-media ph" role="img" aria-label="Foto da campanha">
+            <span class="tag">Novidades</span>
+            <span>Foto: campanha (vestido de festa)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <svg class="cover" id="cover" aria-hidden="true">
+      <defs>
+        <mask id="vmask" maskUnits="userSpaceOnUse" x="-20000" y="-20000" width="40000" height="40000">
+          <rect x="-20000" y="-20000" width="40000" height="40000" fill="#fff"/>
+          <text id="vtext" text-anchor="middle" dominant-baseline="central" fill="#000">V</text>
+        </mask>
+      </defs>
+      <rect x="-20000" y="-20000" width="40000" height="40000" fill="#000" mask="url(#vmask)"/>
+    </svg>
+
+    <p class="hint" id="hint">Role para entrar<span></span></p>
+    <a class="skip-intro" id="skipIntro" href="#pecas">Pular</a>
+  </div>
+</section>
+
+<main>
+  <section class="catalogo" id="pecas" aria-labelledby="pecas-titulo">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2 id="pecas-titulo">Todas as peças</h2>
+        <div class="pills" id="filtros" role="group" aria-label="Filtrar por ocasião">
+          <button type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button type="button" data-filtro="novidades" aria-pressed="false">Novidades</button>
+          <button type="button" data-filtro="festa" aria-pressed="false">Festa</button>
+          <button type="button" data-filtro="balada" aria-pressed="false">Balada</button>
+          <button type="button" data-filtro="praia" aria-pressed="false">Praia</button>
+        </div>
+      </div>
+      <p class="count" id="contagem" aria-live="polite"></p>
+      <div class="grid" id="grade"></div>
+    </div>
+  </section>
+
+  <section class="how" id="como-comprar" aria-labelledby="como-titulo">
+    <div class="wrap">
+      <h2 id="como-titulo">Como comprar</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-n">1</span>
+          <h3>Escolha a peça</h3>
+          <p>Abra a peça que você gostou e selecione o seu tamanho.</p>
+        </li>
+        <li>
+          <span class="step-n">2</span>
+          <h3>Chame a gente</h3>
+          <p>O botão de pedido já leva o nome da peça e o tamanho. É só enviar a mensagem.</p>
+        </li>
+        <li>
+          <span class="step-n">3</span>
+          <h3>Receba em casa</h3>
+          <p>Combinamos o pagamento e a entrega em Curitiba e região metropolitana.</p>
+        </li>
+      </ol>
+      <a class="btn btn-light" href="#" data-contato>Falar com a Vers</a>
+    </div>
+  </section>
+
+  <section class="sobre" id="sobre" aria-labelledby="sobre-titulo">
+    <div class="wrap sobre-inner">
+      <h2 id="sobre-titulo" class="logo logo-xl">Vers</h2>
+      <p>Moda para os momentos que pedem uma roupa especial: a festa de formatura, a balada de sexta, o réveillon na praia. Novidades toda semana no Instagram.</p>
+      <a class="btn btn-ghost" href="#" data-instagram>Seguir @versstore</a>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap rodape-inner">
+    <span class="logo logo-md">Vers</span>
+    <span>Moda festa, balada e praia · Curitiba e região metropolitana · <a href="#" data-instagram>@versstore</a></span>
+    <span class="copy">© <span id="ano"></span> Vers</span>
+  </div>
+</footer>
+
+<!-- Detalhe da peça -->
+<dialog class="peca" id="peca" aria-labelledby="peca-nome">
+  <form method="dialog" class="peca-fechar-form">
+    <button class="peca-fechar" aria-label="Fechar">×</button>
+  </form>
+  <div class="peca-body">
+    <div class="peca-media" id="peca-media"></div>
+    <div class="peca-info">
+      <p class="eyebrow" id="peca-cat"></p>
+      <h2 id="peca-nome"></h2>
+      <p class="peca-preco" id="peca-preco"></p>
+      <p class="peca-desc" id="peca-desc"></p>
+      <fieldset class="tamanhos">
+        <legend>Tamanho</legend>
+        <div class="pills" id="peca-tamanhos"></div>
+      </fieldset>
+      <a class="btn btn-full" id="peca-pedir" href="#" target="_blank" rel="noopener">Pedir</a>
+      <p class="peca-nota" id="peca-nota"></p>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/produtos.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
