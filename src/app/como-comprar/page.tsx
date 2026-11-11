@@ -29,7 +29,7 @@ const passos = [
 
 export default function ComoComprarPage() {
   return (
-    <main id="conteudo" className="mx-auto max-w-5xl px-4 pt-24 pb-24 sm:px-8 sm:pt-32">
+    <main id="conteudo" className="mx-auto max-w-5xl px-4 pt-36 pb-24 sm:px-8 sm:pt-44">
       <header className="mx-auto max-w-xl text-center">
         <p className="legenda text-cinza-texto">Simples assim</p>
         <h1 className="mt-6 text-5xl sm:text-6xl">Como comprar</h1>

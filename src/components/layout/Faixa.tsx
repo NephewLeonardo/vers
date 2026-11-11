@@ -2,7 +2,9 @@
 export function Faixa() {
   return (
     <div className="bg-preto text-branco">
-      <p className="legenda px-4 py-2.5 text-center">Entrega em Curitiba e região metropolitana</p>
+      <p className="legenda px-4 py-2.5 text-center tracking-[0.14em] sm:tracking-legenda">
+        Entrega em Curitiba e região metropolitana
+      </p>
     </div>
   );
 }

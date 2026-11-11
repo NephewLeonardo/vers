@@ -48,7 +48,7 @@ export default async function PecaPage({ params }: PageProps) {
   const etiqueta = produto.etiquetas[0];
 
   return (
-    <main id="conteudo" className="mx-auto max-w-7xl px-4 pt-20 pb-24 sm:px-8 sm:pt-24">
+    <main id="conteudo" className="mx-auto max-w-7xl px-4 pt-32 pb-24 sm:px-8 sm:pt-36">
       <nav aria-label="Você está em" className="legenda mb-6 text-cinza-texto">
         <ol className="flex gap-2">
           <li>
@@ -69,7 +69,7 @@ export default async function PecaPage({ params }: PageProps) {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="flex flex-col gap-10 lg:sticky lg:top-24">
+          <div className="flex flex-col gap-10 lg:sticky lg:top-32">
             <header className="flex flex-col gap-4">
               {etiqueta && <p className="legenda text-cinza-texto">{nomeEtiqueta(etiqueta)}</p>}
               <h1 className="text-4xl leading-tight sm:text-5xl">{produto.nome}</h1>
