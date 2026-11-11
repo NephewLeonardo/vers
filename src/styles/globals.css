@@ -1,0 +1,102 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-branco);
+    color: var(--color-preto);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Foco sempre visível no teclado, fino e no estilo da marca. */
+  :focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-preto);
+    color: var(--color-branco);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Legenda: pequena, caixa alta, espaçada. */
+  .legenda {
+    font-family: var(--font-sans);
+    font-size: var(--text-legenda);
+    line-height: var(--text-legenda--line-height);
+    font-weight: 400;
+    letter-spacing: var(--tracking-legenda);
+    text-transform: uppercase;
+  }
+
+  /* Botão de borda fina e cantos totalmente arredondados. */
+  .botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding-inline: 1.5rem;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-pilula);
+    font-size: var(--text-legenda);
+    font-weight: 400;
+    letter-spacing: var(--tracking-legenda);
+    text-transform: uppercase;
+    transition:
+      background-color 0.3s var(--ease-vers),
+      color 0.3s var(--ease-vers);
+  }
+
+  .botao:hover {
+    background-color: var(--color-preto);
+    color: var(--color-branco);
+  }
+
+  /* Link "pular" que só aparece com o foco do teclado. */
+  .pular-para-conteudo {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-200%);
+    background: var(--color-branco);
+    color: var(--color-preto);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-preto);
+    border-radius: var(--radius-pilula);
+  }
+
+  .pular-para-conteudo:focus-visible {
+    transform: none;
+  }
+}

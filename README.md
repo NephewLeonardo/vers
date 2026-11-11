@@ -2,31 +2,28 @@
 
 Site da Vers: moda festa, balada e praia, com entrega em Curitiba e região metropolitana.
 
-Site estático, sem build: HTML, CSS e JavaScript puros.
+Next.js (App Router) + TypeScript strict + Tailwind CSS v4. Hospedagem pensada para a Vercel.
 
-## Estrutura
+## Comandos
 
-- `index.html`: página (entrada 3D pelo V, catálogo, como comprar, sobre)
-- `css/style.css`: estilos
-- `js/produtos.js`: **contatos e peças. É aqui que você edita o conteúdo.**
-- `js/main.js`: entrada 3D, filtros, detalhe da peça e links de pedido
-- `assets/fonts/versv.woff2`: fonte do V da entrada
-- `assets/img/pecas/`: fotos das peças (retrato 3:4)
+| Comando             | O que faz                           |
+| ------------------- | ----------------------------------- |
+| `npm run dev`       | servidor de desenvolvimento (:3000) |
+| `npm run build`     | build de produção                   |
+| `npm start`         | sobe o build de produção            |
+| `npm run lint`      | ESLint                              |
+| `npm run typecheck` | checagem de tipos                   |
+| `npm run format`    | formata com Prettier                |
 
-## Como cadastrar uma peça
+## Onde fica cada coisa
 
-1. Coloque a foto em `assets/img/pecas/` (ex.: `vestido-branco.jpg`).
-2. Em `js/produtos.js`, adicione ou edite um item de `VERS_PRODUTOS` com nome, preço, categoria (`festa`, `balada` ou `praia`), tamanhos e `foto: "assets/img/pecas/vestido-branco.jpg"`.
+- `src/styles/theme.css`: **tokens da marca** (cores, fontes, legendas, pílulas)
+- `src/app/fonts.ts`: Playfair Display itálico 400 e Inter 300/400 (servidas pelo próprio site)
+- `src/proxy.ts`: Content-Security-Policy com nonce por requisição
+- `next.config.ts`: demais cabeçalhos de segurança
+- `src/lib/site.ts`: nome, descrição e Instagram
+- `src/assets/fonts/versv.woff2`: glifo do V da entrada
 
-## Pedidos
+## Variáveis de ambiente
 
-Preencha `whatsapp` em `js/produtos.js` (só dígitos, com 55 + DDD). O botão "Pedir" abre o WhatsApp com o nome da peça e o tamanho já escritos.
-Enquanto o número estiver vazio, o botão leva para o Direct do Instagram (@versstore).
-
-## Rodar localmente
-
-```
-python -m http.server 8000
-```
-
-Depois abra http://localhost:8000. Para publicar, suba a pasta em qualquer hospedagem estática (Vercel, Netlify, GitHub Pages).
+Copie `.env.example` para `.env.local`. Arquivos `.env*.local` não vão para o git.

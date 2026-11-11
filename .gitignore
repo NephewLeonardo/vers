@@ -1,0 +1,20 @@
+# dependências
+/node_modules
+
+# build do Next
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+
+# segredos e variáveis locais (nunca commitar)
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# sistema / logs
+.DS_Store
+Thumbs.db
+npm-debug.log*

@@ -1,0 +1,40 @@
+/*
+ * Tokens da marca VERS: o único lugar onde cores, fontes e medidas da marca são definidas.
+ * Uso no Tailwind: bg-preto, text-grafite, border-linha, font-serif, tracking-legenda...
+ */
+@theme {
+  /* Zera a paleta padrão do Tailwind: só existem as cores da marca. */
+  --color-*: initial;
+
+  --color-preto: #000000;
+  --color-grafite: #1a1a1f;
+  --color-cinza: #8a8a92; /* 3,4:1 no branco. Só para linhas, ícones, texto grande ou sobre fundo escuro */
+  --color-cinza-texto: #6e6e76; /* 5,0:1 no branco (AA). Para texto pequeno secundário sobre fundo claro */
+  --color-linha: #e4e4e8;
+  --color-branco: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Fontes vêm do next/font (src/app/fonts.ts) via variáveis CSS. */
+  --font-serif: var(--font-playfair), "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  /* Pesos leves: nada de negrito pesado. */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+
+  /* Legendas pequenas em caixa alta com espaçamento largo. */
+  --tracking-legenda: 0.2em;
+  --text-legenda: 0.6875rem;
+  --text-legenda--line-height: 1.4;
+
+  /* Linhas finas e cantos de pílula. */
+  --default-border-width: 1px;
+  --radius-pilula: 9999px;
+
+  /* Movimento. */
+  --ease-vers: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Altura da barra de navegação fixa. */
+  --spacing-nav: 3.5rem;
+}
